@@ -6,13 +6,14 @@ class Test:
     def createQuestions(self, pm):
         ret = []
         for i in range(pm[0]):
-            ret.append(Question(pm[1],pm[2],pm[3],pm[4],pm[5],pm[6]))
+            ret.append(Question(pm[1],pm[2],pm[3],pm[4]))
         return ret
 
 class Question:
-    def __init__(self, traits, exclusionary=False, linkedTo=False):
+    def __init__(self, traits, sd_traits, pTraits, linkedTo=False):
         self.traits = traits #  traits should have ridiculously high values if they are not relevant.
-        self.exclusionary = exclusionary
+        self.sd_traits = sd_traits
+        self.pTraits = pTraits
         self.linkedTo = linkedTo
 
         # linkedTo is an array of tuples that are associated with this question of form (p,id)

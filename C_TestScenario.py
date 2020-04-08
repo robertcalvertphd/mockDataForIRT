@@ -1,11 +1,12 @@
 from C_Test import Test
 from C_TestTaker import TestTaker
-
+import pandas as pd
 
 class TestScenario:
-    def __init__(self, description, numberOfQuestions, listOfNbyGroup, traitPrevalence, traitDifficulties, traitDifficultyStandardDeviations):
+    def __init__(self, fileName, numberOfQuestions, listOfNbyGroup, traitPrevalence, traitDifficulties, traitDifficultyStandardDeviations):
         self.test = Test(numberOfQuestions, traitDifficulties, traitDifficultyStandardDeviations, traitPrevalence, 0)
         self.testTakers = self.populateTestTakers(listOfNbyGroup)
+        self.gradedResponse = self.administerTest(fileName)
 
     def populateTestTakers(self, arrayOfNByGroup, groupMeans = [[0,0,0]], groupSDs = [[1,1,1]]):
         ret = []
@@ -14,10 +15,14 @@ class TestScenario:
             for i in range(n_of_group):
                 ret.append(TestTaker(groupMeans[groupID], groupSDs[groupID]))
             groupID += 1
-
-    def administerTest(self):
+        return ret
+    def administerTest(self, fileName):
+        answers = []
         for testTaker in self.testTakers:
-            answers = testTaker.takeTest(self.test.questions)
-            print(sum(answers)/len(answers))
+            a = testTaker.takeTest(self.test.questions)
+            answers.append(a)
+            print(sum(a)/len(a))
+        df = pd.DataFrame(answers)
+        df.to_csv(fileName+".csv")
 
-t = TestScenario("first test", 100,[1000], [.7,.1,.1], [0,1,1],[1,1,1])
+TestScenario("second_test", 100,[1000], [.7,.1,.1], [.5,1,1],[2,1,1]).gradedResponse

@@ -11,18 +11,23 @@ class TestTaker:
         ret = []
         for question in questions:
             ret.append(self.useTraitsToAnswerQuestion(question.traits))
-
+        return ret
     def useTraitsToAnswerQuestion(self, questionTraits):
-        rA = self.traitA
-        rB = self.traitB
-        rC = self.traitC
+        if random.randint(1,4)==1: return  1
+        rA = random.gauss(self.traitA,1)
+        rB = random.gauss(self.traitB,1)
+        rC = random.gauss(self.traitC,1)
+
+        A = 0
+        B = 0
+        C = 0
 
         if rA < questionTraits[0]:
-            A = True
+            A = 1
         if rB < questionTraits[1]:
-            B = True
+            B = 1
         if rC < questionTraits[2]:
-            C = True
+            C = 1
         if not A or not B or not C:
-            return False
-        return True
+            return 0
+        return 1
