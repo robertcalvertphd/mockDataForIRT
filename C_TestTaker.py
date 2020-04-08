@@ -10,10 +10,12 @@ class TestTaker:
     def takeTest(self, questions):
         ret = []
         for question in questions:
-            ret.append(self.useTraitsToAnswerQuestion(question.traits))
+            ret.append(self.useTraitsToAnswerQuestion(question))
         return ret
-    def useTraitsToAnswerQuestion(self, questionTraits):
-        if random.randint(1,4)==1: return  1
+    def useTraitsToAnswerQuestion(self, question):
+
+        questionTraits = question.traits
+
         rA = random.gauss(self.traitA,1)
         rB = random.gauss(self.traitB,1)
         rC = random.gauss(self.traitC,1)

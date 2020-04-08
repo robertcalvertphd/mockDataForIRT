@@ -1,3 +1,5 @@
+import random
+
 class Test:
     def __init__(self, n, difficultyByTrait, sdOfTraitDifficulty, pOfTraits, pLinkedTo):
         pm = [n,difficultyByTrait,sdOfTraitDifficulty,pOfTraits, pLinkedTo]
@@ -10,11 +12,24 @@ class Test:
         return ret
 
 class Question:
-    def __init__(self, traits, sd_traits, pTraits, linkedTo=False):
+    def __init__(self, traits, sd_traits, pTraits, numberOfOptions = 4, unbalancedGuessing = True, linkedTo=False):
         self.traits = traits #  traits should have ridiculously high values if they are not relevant.
         self.sd_traits = sd_traits
         self.pTraits = pTraits
         self.linkedTo = linkedTo
+        self.numberOfOptions = numberOfOptions
+        self.correct = chr(random.randint(1,numberOfOptions)+64)
+        self.arrayForGuessing = []
+        guessWeight = []
+        for i in range(numberOfOptions):
+            if unbalancedGuessing:
+                self.guessWeight.append(random.randint(1,10))
+            else:
+                self.guessWeight.append(1)
+        for weight in guessWeight:
+            self.arrayForGuessing.append(weight/sum(guessWeight))
+
+
 
         # linkedTo is an array of tuples that are associated with this question of form (p,id)
         # where p is probability of getting this question correct if id was correct
