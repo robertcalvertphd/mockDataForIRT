@@ -46,7 +46,7 @@ def gradeTests(fileName, questions, testTakers):
                 entry.append(0)
         ret.append(entry)
     df = pd.DataFrame(ret)
-    df.to_csv(fileName + "gradedResponses.csv")
+    df.to_csv(fileName + "_gradedResponses.csv")
 
 
 def format_list_of_lists_for_xCalibre(list_of_lists):
