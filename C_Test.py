@@ -28,9 +28,7 @@ class Question:
                 guessWeight.append(1)
         for weight in guessWeight:
             self.arrayForGuessing.append(weight/sum(guessWeight))
-
         self.control = [id,self.correct, self.numberOfOptions, 1, 'Y', 'M']
-        print("hello")
 
         # linkedTo is an array of tuples that are associated with this question of form (p,id)
         # where p is probability of getting this question correct if id was correct

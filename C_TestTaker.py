@@ -1,20 +1,23 @@
 import random
-
+from C_Test import Question
 
 class TestTaker:
     def __init__(self, traitMeans = [0,0,0], traitsSDs= [1,1,1]):
         self.traitA = random.gauss(traitMeans[0], traitsSDs[0])
         self.traitB = random.gauss(traitMeans[1], traitsSDs[1])
         self.traitC = random.gauss(traitMeans[2], traitsSDs[2])
-
+        self.answers = []
     def takeTest(self, questions):
         ret = []
         for question in questions:
             ret.append(self.useTraitsToAnswerQuestion(question))
-        return ret
-    def useTraitsToAnswerQuestion(self, question):
+        self.answers = ret
 
-        questionTraits = question.traits
+
+    def useTraitsToAnswerQuestion(self, question:Question):
+        #returns answers to questions ungraded
+
+        questionTraits = question.arrayForGuessing
 
         rA = random.gauss(self.traitA,1)
         rB = random.gauss(self.traitB,1)
@@ -31,5 +34,14 @@ class TestTaker:
         if rC < questionTraits[2]:
             C = 1
         if not A or not B or not C:
-            return 0
-        return 1
+            return self.guess(question)
+        return question.correct
+
+
+    def guess(self,question):
+        possibleQuesses = question.arrayForGuessing
+        while 1:
+            g = random.choice(possibleQuesses)
+            if random.random()< g:
+                ret =  chr(65+possibleQuesses.index(g))
+                return ret
