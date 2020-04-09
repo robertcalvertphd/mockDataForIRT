@@ -7,7 +7,7 @@ class TestScenario:
         self.test = Test(numberOfQuestions, traitDifficulties, traitDifficultyStandardDeviations, traitPrevalence, 0)
         self.testTakers = self.populateTestTakers(listOfNbyGroup)
         self.gradedResponse = self.administerTest(fileName)
-
+        self.createControlFile(fileName)
     def populateTestTakers(self, arrayOfNByGroup, groupMeans = [[0,0,0]], groupSDs = [[1,1,1]]):
         ret = []
         groupID = 0
@@ -25,4 +25,12 @@ class TestScenario:
         df = pd.DataFrame(answers)
         df.to_csv(fileName+".csv")
 
-TestScenario("second_test", 100,[1000], [.7,.1,.1], [.5,1,1],[2,1,1]).gradedResponse
+    def createControlFile(self, fileName):
+        ret = []
+        for question in self.test.questions:
+            ret.append(question.control)
+        df = pd.DataFrame(ret)
+        df.to_csv(fileName+"_control.csv", index = False, header = None)
+
+
+TestScenario("f", 100,[1000], [.7,.1,.1], [.5,1,1],[2,1,1]).gradedResponse
