@@ -28,6 +28,7 @@ class TestScenario:
         formatted = format_list_of_lists_for_xCalibre(answers)
         f.write(formatted)
         gradeTests(fileName, self.test.questions, self.testTakers)
+
     def createControlFile(self, fileName):
         ret = []
         for question in self.test.questions:
